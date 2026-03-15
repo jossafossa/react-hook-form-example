@@ -1,14 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { orderSchema, useErrorMap, type OrderData } from "./schema";
 import { TitleSelect } from "./TitleSelect";
 import { NameInput } from "./NameInput";
-import { Grid, Container, Button } from "@/components";
+import { Grid, Container, Button, Stack, Heading } from "@/components";
 import { OrderGrid } from "./OrderGrid";
 import { CustomerTypeSelect } from "./CustomerTypeSelect";
 import { CompanyInput } from "./CompanyInput";
 import { PhoneInput } from "./PhoneInput";
 import { useTranslation } from "react-i18next";
+import { RecipeSelect } from "./RecipeSelect";
+import { UserSelect } from "./UserSelect";
+import { OrderFormProvider } from "./OrderFormContext";
 
 export const OrderForm = () => {
   const { t } = useTranslation("order_form");
@@ -18,6 +21,9 @@ export const OrderForm = () => {
     resolver: zodResolver(orderSchema, {
       error: errorMap,
     }),
+    defaultValues: {
+      products: [],
+    },
   });
 
   const { handleSubmit } = methods;
@@ -26,8 +32,13 @@ export const OrderForm = () => {
     console.log(data);
   };
 
+  const productMethods = useFieldArray({
+    control: methods.control,
+    name: "products",
+  });
+
   return (
-    <FormProvider {...methods}>
+    <OrderFormProvider methods={methods} productMethods={productMethods}>
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid>
@@ -56,11 +67,19 @@ export const OrderForm = () => {
             </Grid.Item>
 
             <Grid.Item>
+              <Stack>
+                <Heading>Bulk actions</Heading>
+                <RecipeSelect />
+                <UserSelect />
+              </Stack>
+            </Grid.Item>
+
+            <Grid.Item>
               <Button type="submit">{t("buttons.submit")}</Button>
             </Grid.Item>
           </Grid>
         </form>
       </Container>
-    </FormProvider>
+    </OrderFormProvider>
   );
 };

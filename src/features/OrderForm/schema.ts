@@ -69,7 +69,7 @@ const phoneValidation = z
 export const baseSchema = z.object({
   name: z.string().min(1),
   title: z.enum(["mr", "mrs"]),
-  orders: z
+  products: z
     .array(
       z.object({
         productId: z.string().min(1),

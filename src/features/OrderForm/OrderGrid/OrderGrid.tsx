@@ -1,39 +1,41 @@
-import { useFieldArray } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { useOrderForm, useOrderFormState } from "../useOrderForm";
 import { Button, Field, Grid, Stack, Heading } from "@/components";
 import { ErrorMessage } from "@hookform/error-message";
 import { ProductSelect } from "../ProductSelect";
 import { useTranslation } from "react-i18next";
 import { AmountField } from "../AmountField";
+import { useProductContext } from "../OrderFormContext";
 
 export const OrderGrid = () => {
   const { t } = useTranslation("order_form");
   const { control } = useOrderForm();
-  const { fields, append, remove, move, insert } = useFieldArray({
-    control,
-    name: "orders",
-  });
+  const { productMethods } = useProductContext();
+
+  const { fields: products, append, remove, move, insert } = productMethods;
+
+  useWatch({ control, name: "products" });
 
   const { errors } = useOrderFormState();
 
   return (
     <Stack direction="column" gap="0.5rem">
-      <Heading>{t("labels.orders")}</Heading>
+      <Heading>{t("labels.products")}</Heading>
 
-      {fields.length === 0 && <span>No orders</span>}
+      {products.length === 0 && <span>No products</span>}
 
-      {fields.map((field, index) => (
-        <Grid key={field.id}>
+      {products.map((product, index) => (
+        <Grid key={product.id}>
           <Grid.Item medium={4}>
             <ProductSelect
-              name={`orders.${index}.productId`}
+              name={`products.${index}.productId`}
               label={t("labels.product")}
             />
           </Grid.Item>
 
           <Grid.Item medium={4}>
             <AmountField
-              name={`orders.${index}.amount`}
+              name={`products.${index}.amount`}
               label={t("labels.amount")}
             />
           </Grid.Item>
@@ -54,7 +56,7 @@ export const OrderGrid = () => {
               <Button
                 title={t("buttons.move_product_up")}
                 onClick={() =>
-                  move(index, index === 0 ? fields.length - 1 : index - 1)
+                  move(index, index === 0 ? products.length - 1 : index - 1)
                 }
               >
                 ↑
@@ -62,7 +64,7 @@ export const OrderGrid = () => {
               <Button
                 title={t("buttons.move_product_down")}
                 onClick={() =>
-                  move(index, index === fields.length - 1 ? 0 : index + 1)
+                  move(index, index === products.length - 1 ? 0 : index + 1)
                 }
               >
                 ↓
