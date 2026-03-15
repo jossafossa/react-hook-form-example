@@ -1,5 +1,4 @@
-import { useWatch } from "react-hook-form";
-import { useOrderForm, useOrderFormState } from "../useOrderForm";
+import { useOrderFormState } from "../useOrderForm";
 import { Button, Field, Grid, Stack } from "@/components";
 import { ErrorMessage } from "@hookform/error-message";
 import { ProductSelect } from "../ProductSelect";
