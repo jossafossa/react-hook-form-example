@@ -1,13 +1,9 @@
 import { Field, Input } from "@/components";
-import { useOrderForm } from "../useOrderForm";
+import { useOrderForm, useOrderFormState } from "../useOrderForm";
 
 export const NameInput = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useOrderForm();
-
-  console.log(errors);
+  const { register } = useOrderForm();
+  const { errors } = useOrderFormState();
 
   return (
     <Field>

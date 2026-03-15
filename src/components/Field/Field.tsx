@@ -10,7 +10,7 @@ const Label = ({ children }: PropsWithChildren) => {
 };
 
 const Error = ({ children }: PropsWithChildren) => {
-  return <div>{children}</div>;
+  return <div className={styles.error}>{children}</div>;
 };
 
 export const Field = Object.assign(_Field, {

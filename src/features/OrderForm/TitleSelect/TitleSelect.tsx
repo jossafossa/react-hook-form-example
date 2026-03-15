@@ -1,11 +1,10 @@
 import { Field } from "@/components";
-import { useOrderForm } from "../useOrderForm";
+import { useOrderForm, useOrderFormState } from "../useOrderForm";
 
 export const TitleSelect = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useOrderForm();
+  const { register } = useOrderForm();
+
+  const { errors } = useOrderFormState();
 
   return (
     <Field>
@@ -13,6 +12,7 @@ export const TitleSelect = () => {
       <select {...register("title")}>
         <option value="Dhr.">Dhr.</option>
         <option value="Mevr.">Mevr.</option>
+        <option value="Other">Other</option>
       </select>
       {errors.title && <Field.Error>{errors.title.message}</Field.Error>}
     </Field>
