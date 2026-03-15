@@ -1,14 +1,10 @@
 import { type FieldPath } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
-import { Field } from "@/components";
+import { Field, Select } from "@/components";
 import { useOrderForm, useOrderFormState } from "../useOrderForm";
 import type { OrderData } from "../schema";
-
-const PRODUCTS = [
-  { id: "cucumber", name: "Cucumber" },
-  { id: "tomato", name: "Tomato" },
-  { id: "lettuce", name: "Lettuce" },
-];
+import { useTranslation } from "react-i18next";
+import { useId } from "react";
 
 type ProductSelectProps = {
   name: FieldPath<OrderData>;
@@ -20,22 +16,28 @@ export const ProductSelect = ({
   name,
   label = "Product",
 }: ProductSelectProps) => {
+  const { t } = useTranslation("order_form");
   const { register } = useOrderForm();
+  const id = useId();
 
   const { errors } = useOrderFormState();
 
+  const products = [
+    { id: "cucumber", name: t("products.cucumber") },
+    { id: "tomato", name: t("products.tomato") },
+    { id: "lettuce", name: t("products.lettuce") },
+  ];
+
+  const options = products.map((product) => ({
+    value: product.id,
+    label: product.name,
+  }));
+
   return (
-    <Field>
+    <Field id={id} required>
       <Field.Label>{label}</Field.Label>
 
-      <select {...register(name)}>
-        <option value="">Selecteer een product</option>
-        {PRODUCTS.map((product) => (
-          <option key={product.id} value={product.id}>
-            {product.name}
-          </option>
-        ))}
-      </select>
+      <Select id={id} {...register(name)} options={options} />
 
       <ErrorMessage
         errors={errors}

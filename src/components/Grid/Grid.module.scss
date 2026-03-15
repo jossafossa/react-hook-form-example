@@ -1,0 +1,28 @@
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+.item {
+  --span: 12;
+  --span-small: var(--span);
+  --span-medium: var(--span-small);
+  --span-large: var(--span-medium);
+  --col-span: var(--span);
+  grid-column: span var(--col-span);
+}
+
+.item {
+  @media (min-width: 600px) {
+    --col-span: var(--span-small);
+  }
+
+  @media (min-width: 800px) {
+    --col-span: var(--span-medium);
+  }
+
+  @media (min-width: 1200px) {
+    --col-span: var(--span-large);
+  }
+}

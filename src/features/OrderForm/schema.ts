@@ -6,34 +6,69 @@ const listFormatter = new Intl.ListFormat("nl", {
   type: "disjunction",
 });
 
-// dutch messages
-export const useErrorMap = () => {
+export const useErrorMap = (): z.ZodErrorMap => {
   const { t } = useTranslation("order_form");
 
-  return (issue: z.core.$ZodIssue) => {
+  return (issue) => {
+    if (issue.message) return issue.message;
+
     if (issue.code === "invalid_value") {
-      return `Kies uit: ${listFormatter.format(issue.values.map(String))}`;
+      return t("errors.invalidValue", {
+        value: listFormatter.format(issue.values.map(String)),
+      });
     }
 
-    if (issue.code === "too_small" && issue.origin === "array") {
-      return `Te weinig rijen, minimaal ${issue.minimum} nodig`;
+    if (issue.code === "too_small") {
+      if (issue.origin === "array") {
+        return t("errors.minItems", { value: issue.minimum });
+      }
+
+      if (issue.origin === "number") {
+        return t("errors.min", { value: issue.minimum });
+      }
+
+      if (issue.origin === "string") {
+        return t("errors.minLength", { value: issue.minimum });
+      }
     }
 
-    if (issue.code === "too_small" && issue.origin === "string") {
+    if (issue.code === "too_big") {
+      if (issue.origin === "number") {
+        return t("errors.max", { value: issue.maximum });
+      }
+
+      if (issue.origin === "string") {
+        return t("errors.maxLength", { value: issue.maximum });
+      }
+    }
+
+    if (issue.code === "invalid_union") {
       return t("errors.required");
     }
 
-    if (issue.code === "too_small" && issue.origin === "number") {
-      return `Waarde moet minimaal ${issue.minimum} zijn`;
+    if (issue.code === "invalid_type") {
+      return t("errors.invalidType", {
+        expected: issue.expected,
+        received: issue.received,
+      });
     }
 
-    return { message: issue.message };
+    if (issue.code === "invalid_format") {
+      return t("errors.invalidFormat");
+    }
+
+    return t("errors.unknown");
   };
 };
 
+const phoneValidation = z
+  .string()
+  .min(1)
+  .regex(/^\+?[0-9\s-]{6,15}$/);
+
 export const baseSchema = z.object({
   name: z.string().min(1),
-  title: z.enum(["Dhr.", "Mevr."]),
+  title: z.enum(["mr", "mrs"]),
   orders: z
     .array(
       z.object({
@@ -47,10 +82,13 @@ export const baseSchema = z.object({
 const customerSchema = z.discriminatedUnion("customerType", [
   z.object({
     customerType: z.literal("individual"),
+    company: z.string().optional(),
+    phone: phoneValidation.or(z.string().length(0)),
   }),
   z.object({
     customerType: z.literal("business"),
     company: z.string().min(1),
+    phone: phoneValidation,
   }),
 ]);
 

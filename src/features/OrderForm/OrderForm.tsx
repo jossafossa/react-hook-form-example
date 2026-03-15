@@ -3,19 +3,21 @@ import { FormProvider, useForm } from "react-hook-form";
 import { orderSchema, useErrorMap, type OrderData } from "./schema";
 import { TitleSelect } from "./TitleSelect";
 import { NameInput } from "./NameInput";
-import { Stack } from "@/components";
+import { Grid, Container, Button } from "@/components";
 import { OrderGrid } from "./OrderGrid";
 import { CustomerTypeSelect } from "./CustomerTypeSelect";
 import { CompanyInput } from "./CompanyInput";
+import { PhoneInput } from "./PhoneInput";
+import { useTranslation } from "react-i18next";
 
 export const OrderForm = () => {
+  const { t } = useTranslation("order_form");
   const errorMap = useErrorMap();
 
   const methods = useForm({
     resolver: zodResolver(orderSchema, {
       error: errorMap,
     }),
-    mode: "all",
   });
 
   const { handleSubmit } = methods;
@@ -26,23 +28,39 @@ export const OrderForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap="1rem" direction="column">
-          <Stack direction="row" gap="1rem">
-            <TitleSelect />
+      <Container>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid>
+            <Grid.Item medium={6}>
+              <TitleSelect />
+            </Grid.Item>
 
-            <NameInput />
+            <Grid.Item medium={6}>
+              <NameInput />
+            </Grid.Item>
 
-            <CustomerTypeSelect />
+            <Grid.Item medium={6}>
+              <CustomerTypeSelect />
+            </Grid.Item>
 
-            <CompanyInput />
-          </Stack>
+            <Grid.Item medium={6}>
+              <PhoneInput />
+            </Grid.Item>
 
-          <OrderGrid />
+            <Grid.Item medium={6}>
+              <CompanyInput />
+            </Grid.Item>
 
-          <button type="submit">Submit</button>
-        </Stack>
-      </form>
+            <Grid.Item>
+              <OrderGrid />
+            </Grid.Item>
+
+            <Grid.Item>
+              <Button type="submit">{t("buttons.submit")}</Button>
+            </Grid.Item>
+          </Grid>
+        </form>
+      </Container>
     </FormProvider>
   );
 };

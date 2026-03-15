@@ -1,8 +1,19 @@
 .field {
-  display: grid;
-  gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.label {
+  font-size: 80%;
+  user-select: none;
 }
 
 .error {
+  color: red;
+  font-size: 80%;
+}
+
+.required {
   color: red;
 }

@@ -1,5 +1,49 @@
 {
   "errors": {
-    "required": "This field is required"
+    "invalidFormat": "Invalid format",
+    "invalidType": "Enter a valid {{expected}}",
+    "invalidValue": "Invalid value, choose {{value}}",
+    "max": "The value must be at most {{value}}",
+    "min": "The value must be at least {{value}}",
+    "minLength": "The value must be at least {{value}} characters long",
+    "maxLength": "The value must be at most {{value}} characters long",
+    "minItems": "Add at least {{value}} items",
+    "required": "This field is required",
+    "unknown": "Invalid value"
+  },
+  "labels": {
+    "amount": "Amount",
+    "customerType": "Customer Type",
+    "name": "Name",
+    "phone": "Phone number",
+    "product": "Product",
+    "title": "Title",
+    "company": "Company",
+    "orders": "Orders"
+  },
+  "languages": {
+    "english": "English"
+  },
+  "options": {
+    "customerType": {
+      "business": "Business",
+      "individual": "Individual"
+    },
+    "title": {
+      "mr": "Mr.",
+      "mrs": "Mrs."
+    }
+  },
+  "products": {
+    "cucumber": "Cucumber",
+    "lettuce": "Lettuce",
+    "tomato": "Tomato"
+  },
+  "buttons": {
+    "add_product": "Add product",
+    "remove_product": "Remove product",
+    "submit": "Submit",
+    "move_product_up": "Move product up",
+    "move_product_down": "Move product down"
   }
 }

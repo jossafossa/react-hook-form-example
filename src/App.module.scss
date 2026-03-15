@@ -1,0 +1,7 @@
+:where(.app *, .app *::before, .app *::after) {
+  box-sizing: border-box;
+}
+
+.app {
+  font-family: sans-serif;
+}

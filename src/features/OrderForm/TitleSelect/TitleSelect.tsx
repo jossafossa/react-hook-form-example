@@ -1,19 +1,24 @@
-import { Field } from "@/components";
+import { Field, Select } from "@/components";
 import { useOrderForm, useOrderFormState } from "../useOrderForm";
+import { useTranslation } from "react-i18next";
+import { useId } from "react";
 
 export const TitleSelect = () => {
-  const { register } = useOrderForm();
+  const { t } = useTranslation("order_form");
+  const id = useId();
 
+  const { register } = useOrderForm();
   const { errors } = useOrderFormState();
 
+  const options = [
+    { value: "mr", label: t("options.title.mr") },
+    { value: "mrs", label: t("options.title.mrs") },
+  ];
+
   return (
-    <Field>
-      <Field.Label>Titel</Field.Label>
-      <select {...register("title")}>
-        <option value="Dhr.">Dhr.</option>
-        <option value="Mevr.">Mevr.</option>
-        <option value="Other">Other</option>
-      </select>
+    <Field id={id} required>
+      <Field.Label>{t("labels.title")}</Field.Label>
+      <Select id={id} {...register("title")} options={options} />
       {errors.title && <Field.Error>{errors.title.message}</Field.Error>}
     </Field>
   );

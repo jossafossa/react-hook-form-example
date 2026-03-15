@@ -2,7 +2,8 @@ import i18next from "i18next";
 import { OrderForm } from "./features";
 import { initReactI18next } from "react-i18next/initReactI18next";
 import HttpApi from "i18next-http-backend";
-import { LanguageSwitch } from "./components";
+import { Container, LanguageSwitch, Stack } from "@/components";
+import styles from "./App.module.scss";
 
 i18next
   .use(initReactI18next)
@@ -11,21 +12,21 @@ i18next
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
-    supportedLngs: ["en", "nl"],
-    lng: "en", // if you're using a language detector, do not define the lng option
+    supportedLngs: ["en"],
+    lng: "en",
     fallbackLng: "en",
-
-    interpolation: {
-      escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
-    },
   });
 
 function App() {
   return (
-    <>
-      <LanguageSwitch />
-      <OrderForm />
-    </>
+    <div className={styles.app}>
+      <Stack gap="1rem" direction="column">
+        <Container>
+          <LanguageSwitch />
+        </Container>
+        <OrderForm />
+      </Stack>
+    </div>
   );
 }
 

@@ -1,0 +1,6 @@
+.button {
+  font: inherit;
+  --height: 2rem;
+  height: var(--height);
+  min-width: var(--height);
+}
