@@ -82,7 +82,6 @@ export const baseSchema = z.object({
 const customerSchema = z.discriminatedUnion("customerType", [
   z.object({
     customerType: z.literal("individual"),
-    company: z.string().optional(),
     phone: phoneValidation.or(z.string().length(0)),
   }),
   z.object({

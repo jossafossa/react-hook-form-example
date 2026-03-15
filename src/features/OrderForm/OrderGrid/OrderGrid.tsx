@@ -1,6 +1,6 @@
 import { useWatch } from "react-hook-form";
 import { useOrderForm, useOrderFormState } from "../useOrderForm";
-import { Button, Field, Grid, Stack, Heading } from "@/components";
+import { Button, Field, Grid, Stack } from "@/components";
 import { ErrorMessage } from "@hookform/error-message";
 import { ProductSelect } from "../ProductSelect";
 import { useTranslation } from "react-i18next";
@@ -9,20 +9,15 @@ import { useProductContext } from "../OrderFormContext";
 
 export const OrderGrid = () => {
   const { t } = useTranslation("order_form");
-  const { control } = useOrderForm();
   const { productMethods } = useProductContext();
 
   const { fields: products, append, remove, move, insert } = productMethods;
 
-  useWatch({ control, name: "products" });
-
   const { errors } = useOrderFormState();
 
   return (
-    <Stack direction="column" gap="0.5rem">
-      <Heading>{t("labels.products")}</Heading>
-
-      {products.length === 0 && <span>No products</span>}
+    <>
+      {products.length === 0 && <span>{t("empty.products")}</span>}
 
       {products.map((product, index) => (
         <Grid key={product.id}>
@@ -81,9 +76,9 @@ export const OrderGrid = () => {
 
       <ErrorMessage
         errors={errors}
-        name="orders"
+        name="products"
         render={({ message }) => <Field.Error>{message}</Field.Error>}
       />
-    </Stack>
+    </>
   );
 };

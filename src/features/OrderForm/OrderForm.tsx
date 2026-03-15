@@ -12,9 +12,11 @@ import { useTranslation } from "react-i18next";
 import { RecipeSelect } from "./RecipeSelect";
 import { UserSelect } from "./UserSelect";
 import { OrderFormProvider } from "./OrderFormContext";
+import { useState } from "react";
 
 export const OrderForm = () => {
   const { t } = useTranslation("order_form");
+  const [submitResult, setSubmitResult] = useState<OrderData>();
   const errorMap = useErrorMap();
 
   const methods = useForm({
@@ -30,6 +32,7 @@ export const OrderForm = () => {
 
   const onSubmit = (data: OrderData) => {
     console.log(data);
+    setSubmitResult(data);
   };
 
   const productMethods = useFieldArray({
@@ -41,43 +44,52 @@ export const OrderForm = () => {
     <OrderFormProvider methods={methods} productMethods={productMethods}>
       <Container>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Grid>
-            <Grid.Item medium={6}>
-              <TitleSelect />
-            </Grid.Item>
+          <Stack gap="2rem">
+            <Heading level={1}>{t("labels.title")}</Heading>
 
-            <Grid.Item medium={6}>
-              <NameInput />
-            </Grid.Item>
+            <Stack>
+              <Heading>{t("labels.customer_info")}</Heading>
 
-            <Grid.Item medium={6}>
-              <CustomerTypeSelect />
-            </Grid.Item>
+              <Grid>
+                <Grid.Item medium={6}>
+                  <TitleSelect />
+                </Grid.Item>
 
-            <Grid.Item medium={6}>
-              <PhoneInput />
-            </Grid.Item>
+                <Grid.Item medium={6}>
+                  <NameInput />
+                </Grid.Item>
 
-            <Grid.Item medium={6}>
-              <CompanyInput />
-            </Grid.Item>
+                <Grid.Item medium={6}>
+                  <CustomerTypeSelect />
+                </Grid.Item>
 
-            <Grid.Item>
+                <Grid.Item medium={6}>
+                  <PhoneInput />
+                </Grid.Item>
+
+                <Grid.Item medium={6}>
+                  <CompanyInput />
+                </Grid.Item>
+              </Grid>
+            </Stack>
+
+            <Stack>
+              <Heading>{t("labels.order_details")}</Heading>
               <OrderGrid />
-            </Grid.Item>
+            </Stack>
 
-            <Grid.Item>
-              <Stack>
-                <Heading>Bulk actions</Heading>
-                <RecipeSelect />
-                <UserSelect />
-              </Stack>
-            </Grid.Item>
+            <Stack>
+              <Heading>{t("labels.bulk_actions")}</Heading>
+              <UserSelect />
+              <RecipeSelect />
+            </Stack>
 
-            <Grid.Item>
+            <div>
               <Button type="submit">{t("buttons.submit")}</Button>
-            </Grid.Item>
-          </Grid>
+            </div>
+
+            {submitResult && <pre>{JSON.stringify(submitResult, null, 2)}</pre>}
+          </Stack>
         </form>
       </Container>
     </OrderFormProvider>

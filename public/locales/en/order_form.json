@@ -1,27 +1,44 @@
 {
+  "buttons": {
+    "add_product": "Add product",
+    "add_recipe": "Add recipe to products",
+    "move_product_down": "Move product down",
+    "move_product_up": "Move product up",
+    "remove_product": "Remove product",
+    "set_user_fields": "Set user fields",
+    "submit": "Submit"
+  },
+  "empty": {
+    "products": "No products"
+  },
   "errors": {
     "invalidFormat": "Invalid format",
     "invalidType": "Enter a valid {{expected}}",
     "invalidValue": "Invalid value, choose {{value}}",
     "max": "The value must be at most {{value}}",
-    "min": "The value must be at least {{value}}",
-    "minLength": "The value must be at least {{value}} characters long",
     "maxLength": "The value must be at most {{value}} characters long",
-    "minItems": "Add at least {{value}} items",
+    "min": "The value must be at least {{value}}",
+    "minItems": "Add at least {{value}} item(s)",
+    "minLength": "The value must be at least {{value}} character(s) long",
     "required": "This field is required",
     "unknown": "Invalid value"
   },
   "labels": {
     "amount": "Amount",
+    "bulk_actions": "Bulk actions",
+    "company": "Company",
+    "customer_info": "Customer Information",
     "customerType": "Customer Type",
+    "language": "Language",
     "name": "Name",
+    "order_details": "Order Details",
     "phone": "Phone number",
     "product": "Product",
-    "title": "Title",
-    "company": "Company",
-    "products": "Products"
+    "title": "react-form-hook/zod Form example",
+    "user": "User"
   },
   "languages": {
+    "dutch": "Dutch",
     "english": "English"
   },
   "options": {
@@ -38,12 +55,5 @@
     "cucumber": "Cucumber",
     "lettuce": "Lettuce",
     "tomato": "Tomato"
-  },
-  "buttons": {
-    "add_product": "Add product",
-    "remove_product": "Remove product",
-    "submit": "Submit",
-    "move_product_up": "Move product up",
-    "move_product_down": "Move product down"
   }
 }

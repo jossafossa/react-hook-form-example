@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useOrderForm } from "../useOrderForm";
 import type { OrderData } from "../schema";
 import type { Path } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 type userProfile = {
   name: string;
@@ -33,7 +34,6 @@ const userProfiles: userProfile[] = [
     fields: {
       name: "klaas",
       title: "mrs",
-      company: "",
       phone: "",
       customerType: "individual",
       products: [
@@ -52,6 +52,7 @@ const options = userProfiles.map((profile) => ({
 export const UserSelect = () => {
   const [user, setUser] = useState<string | undefined>();
   const { setValue } = useOrderForm();
+  const { t } = useTranslation("order_form");
 
   const handleSetUser = () => {
     if (!user) return;
@@ -69,14 +70,18 @@ export const UserSelect = () => {
 
   return (
     <Field>
-      <Field.Label>User</Field.Label>
+      <Field.Label>{t("labels.user")}</Field.Label>
       <Stack direction="row" gap="0.5rem">
         <Select
           options={options}
           onChange={(event) => setUser(event?.target.value)}
         />
 
-        {user && <Button onClick={handleSetUser}>Set user fields</Button>}
+        {user && (
+          <Button onClick={handleSetUser}>
+            {t("buttons.set_user_fields")}
+          </Button>
+        )}
       </Stack>
     </Field>
   );

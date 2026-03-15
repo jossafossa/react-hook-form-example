@@ -1,0 +1,59 @@
+{
+  "buttons": {
+    "add_product": "Product toevoegen",
+    "add_recipe": "Recept aan producten toevoegen",
+    "move_product_down": "Product naar beneden verplaatsen",
+    "move_product_up": "Product naar boven verplaatsen",
+    "remove_product": "Product verwijderen",
+    "set_user_fields": "Vul gebruikersvelden in",
+    "submit": "Versturen"
+  },
+  "empty": {
+    "products": "Geen producten"
+  },
+  "errors": {
+    "invalidFormat": "Ongeldig formaat",
+    "invalidType": "Voer een geldige {{expected}} in",
+    "invalidValue": "Ongeldige waarde, kies {{value}}",
+    "max": "De waarde mag maximaal {{value}} zijn",
+    "maxLength": "De waarde mag maximaal {{value}} karakters lang zijn",
+    "min": "De waarde moet minimaal {{value}} zijn",
+    "minItems": "Voeg minimaal {{value}} item(s) toe",
+    "minLength": "De waarde moet minimaal {{value}} karakter(s) lang zijn",
+    "required": "Dit veld is verplicht",
+    "unknown": "Ongeldige waarde"
+  },
+  "labels": {
+    "amount": "Hoeveelheid",
+    "bulk_actions": "Bulk acties",
+    "company": "Bedrijf",
+    "customer_info": "Klantgegevens",
+    "customerType": "Klanttype",
+    "language": "Taal",
+    "name": "Naam",
+    "order_details": "Bestelling details",
+    "phone": "Telefoonnummer",
+    "product": "Product",
+    "title": "React Hook Form/Zod Formulier voorbeeld",
+    "user": "Gebruiker"
+  },
+  "languages": {
+    "dutch": "Nederlands",
+    "english": "Engels"
+  },
+  "options": {
+    "customerType": {
+      "business": "Zakelijk",
+      "individual": "Particulier"
+    },
+    "title": {
+      "mr": "Dhr.",
+      "mrs": "Mevr."
+    }
+  },
+  "products": {
+    "cucumber": "Komkommer",
+    "lettuce": "Sla",
+    "tomato": "Tomaat"
+  }
+}

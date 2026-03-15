@@ -12,7 +12,7 @@ i18next
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
-    supportedLngs: ["en"],
+    supportedLngs: ["en", "nl"],
     lng: "en",
     fallbackLng: "en",
   });
